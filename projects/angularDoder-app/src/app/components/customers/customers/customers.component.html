@@ -1,0 +1,51 @@
+<div class="row">
+    <div class="col">
+        <a routerLink="/customers/new" class="btn btn-outline-primary float-right mb-2">
+            <fa-icon icon="plus-circle"></fa-icon> New customer
+        </a>
+    </div>
+</div>
+<div>
+    <data-table [tableClass]="'table table-striped'"
+                [headerClass]="'thead-light'"
+                [tableHeader]="tableHeader" 
+                [tableBody]="tableBody"
+                [tableBodyEmpty]="tableBodyEmpty"
+                [rows]="page.results"
+                [limits]="[2,5,10]"
+                [limit]="page.pager.limit"
+                [offset]="page.pager.offset"
+                [count]="page.pager.count"
+                [sortColumn]="sortCol"
+                [sortDirection]="sortDir"
+                (pageChanged)="onPageChange($event)">
+        <ng-template #tableHeader>
+            <tr>
+                <th scope="col" width="30%" sortable="name" direction="asc">Name</th>
+                <th scope="col" width="30%" sortable="address">Address</th>
+                <th scope="col" width="30%" sortable="province.name">Province</th>
+                <th scope="col" width="10%"></th>
+            </tr>
+        </ng-template>
+        <ng-template #tableBodyEmpty>
+            <tr>
+                <td colspan="4" class="text-center">No data available</td>
+            </tr>
+        </ng-template>
+        <ng-template #tableBody let-row>
+            <tr>
+                <td>{{row.name}}</td>
+                <td>{{row.address}}</td>
+                <td>{{row.province.name}}</td>
+                <td>
+                    <a class="btn btn-warning btn-sm" [routerLink]="['/customers', row.id]" title="Edit customer">
+                        <fa-icon icon="edit" [fixedWidth]="true"></fa-icon>
+                    </a>
+                    <button type="button" class="btn btn-danger btn-sm ml-2" (click)="delete(row.id)" title="Delete customer">
+                        <fa-icon icon="trash" [fixedWidth]="true"></fa-icon>
+                    </button>
+                </td>
+            </tr>
+        </ng-template>
+    </data-table>
+</div>

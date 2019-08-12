@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title></title>
+</head>
+
+<body>
+	<script src="oidc-client.min.js?v=1"></script>
+	<script>
+		// if (Oidc && Oidc.Log && Oidc.Log.logger){
+		// 	Oidc.Log.logger = console;
+		// }
+		//console.log("Running SilentRenew page...")
+		new Oidc.UserManager({ userStore: new Oidc.WebStorageStateStore({ store: window.localStorage }) }).signinSilentCallback();
+	</script>
+</body>
+
+</html>

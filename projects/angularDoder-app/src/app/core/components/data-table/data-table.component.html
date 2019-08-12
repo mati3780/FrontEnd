@@ -1,0 +1,24 @@
+<table [ngClass]="tableClass">
+  <thead [ngClass]="headerClass">
+    <ng-container *ngTemplateOutlet="tableHeader"></ng-container>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let row of rows">
+      <ng-container *ngTemplateOutlet="tableBody; context: { $implicit: row }"></ng-container>
+    </ng-container>
+    <ng-container *ngIf="!rows || rows.length === 0">
+      <ng-container *ngTemplateOutlet="tableBodyEmpty"></ng-container>
+    </ng-container>
+  </tbody>
+  <tfoot *ngIf="tableFoot">
+    <ng-container *ngTemplateOutlet="tableFoot"></ng-container>
+  </tfoot>
+</table>
+<div class="d-flex justify-content-between p-2">
+  <ngb-pagination [(page)]="pageNumber" [pageSize]="limit" [collectionSize]="count"
+                  [boundaryLinks]="true" [rotate]="true" [maxSize]="3">
+  </ngb-pagination>
+  <select class="custom-select" style="width: auto" name="limit" [(ngModel)]="_limit">
+      <option *ngFor="let size of limits" [ngValue]="size">{{size}} items per page</option>
+  </select>
+</div>

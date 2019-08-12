@@ -1,0 +1,57 @@
+<div>
+  <h3>
+    Customer
+    <small>{{id}}</small>
+  </h3>
+
+  <form #form="ngForm" [formGroup]="formData" (ngSubmit)="onSubmit()" *ngIf="customer | async">
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label text-sm-right">Name</label>
+      <div class="col-sm-6">
+        <input type="text" formControlName="name" class="form-control" placeholder="Name" required maxlength="200"
+          showValidation [form]="form" />
+        <validation-messages [form]="form" controlName="name" class="invalid-feedback d-block">
+          <validation-message error="required">Name is required</validation-message>
+          <validation-message error="maxlength">The name cannot exceed 200 characters</validation-message>
+        </validation-messages>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label text-sm-right">Address</label>
+      <div class="col-sm-6">
+        <input type="text" formControlName="address" class="form-control" placeholder="Address" required maxlength="300"
+          showValidation [form]="form" />
+        <validation-messages [form]="form" controlName="address" class="invalid-feedback d-block">
+          <validation-message error="required">Address is required</validation-message>
+          <validation-message error="maxlength">The address cannot exceed 300 characters</validation-message>
+        </validation-messages>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label text-sm-right">Province</label>
+      <div class="col-sm-6">
+        <select formControlName="provinceId" class="custom-select" required showValidation [form]="form">
+          <option *ngFor="let province of provinces" [value]="province.id">{{province.name}}</option>
+        </select>
+        <validation-messages [form]="form" controlName="provinceId" class="invalid-feedback d-block">
+          <validation-message error="required">Province is required</validation-message>
+        </validation-messages>
+      </div>
+    </div>
+
+    <div class="row mt-sm-4">
+      <div class="col-sm-12">
+        <button type="submit" class="btn btn-outline-primary mr-sm-2">Save</button>
+        <a routerLink="/customers" class="btn btn-default">Cancel</a>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- <ng-template #loading>
+  LOADING...
+</ng-template> -->
+
+<item-not-found *ngIf="notFound">
